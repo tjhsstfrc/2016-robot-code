@@ -1,0 +1,93 @@
+
+package org.usfirst.frc.team3455.robot;
+
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
+/**
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the IterativeRobot
+ * documentation. If you change the name of this class or the package after
+ * creating this project, you must also update the manifest file in the resource
+ * directory.
+ */
+public class Robot extends IterativeRobot {
+    RobotDrive myRobot;  // class that handles basic drive operations                             
+    Joystick leftStick;  // set to ID 1 in DriverStation                                          
+    Joystick rightStick; // set to ID 2 in DriverStation                                          
+                                                                                                  
+    Talon frontLeft;                                                                              
+    Talon frontRight;                                                                             
+    Talon backLeft;                                                                               
+    Talon backRight;                                                                              
+    Talon frontStrafe;                                                                            
+    Talon backStrafe;       
+    Encoder winchEncoder;
+                                                                                                  
+    Talon winchCim1;                                                                            
+    Talon winchCim2; 
+	
+	/**
+     * This function is run when the robot is first started up and should be
+     * used for any initialization code.
+     */
+    public void robotInit() {
+        // myRobot = new RobotDrive(0, 1);                                                         
+    	//      myRobot.setExpiration(0.1);                                                             
+    	winchEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k1X);
+    	//winchEncoder.setMaxPeriod(.1);
+    	winchEncoder.setMinRate(10);
+    	//winchEncoder.setDistancePerPulse(5);
+    	winchEncoder.setReverseDirection(true);
+    	winchEncoder.setSamplesToAverage(7);                                                                                          
+         
+  	
+    	//PRACTICE CHASSIS
+    	frontLeft = new Talon(1);  //not spinning                                                               
+    	frontRight = new Talon(7);                                                                
+    	backLeft = new Talon(2);                                                                  
+    	backRight = new Talon(6);                                                                 
+    	frontStrafe = new Talon(0);                                                               
+   		backStrafe = new Talon(5);   //not spinning                                                             
+                                                                                                
+   		winchCim1 = new Talon(8);                                                               
+   		winchCim2 = new Talon(9);
+    }
+
+    /**
+     * This function is called periodically during autonomous
+     */
+    public void autonomousPeriodic() {
+		System.out.println("Starting autonomous code...");
+			
+		frontLeft.set(0.5);
+		frontRight.set(-0.5);
+		backLeft.set(0.5);
+		backRight.set(-0.5);
+		
+		Timer.delay(2.5);
+		
+		frontLeft.set(0);
+		frontRight.set(0);
+		backLeft.set(0);
+		backRight.set(0);
+    }
+
+    /**
+     * This function is called periodically during operator control
+     */
+    public void teleopPeriodic() {
+        
+    }
+    
+    /**
+     * This function is called periodically during test mode
+     */
+    public void testPeriodic() {
+    
+    }
+    
+}

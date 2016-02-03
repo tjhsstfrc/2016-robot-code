@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3455.robot.Robot"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.BuiltInAccelerometer"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.interfaces.Accelerometer"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.vision.AxisCamera"/>
+<fullyQualifiedTypeName name="com.ni.vision.NIVision.Image"/>
+</qualifiedTypeNameHistroy>

@@ -17,6 +17,9 @@ public class AutonomousTest extends SampleRobot{
     Talon winchCim1;                                                                            
     Talon winchCim2; 
     
+    public AutonomousTest() {
+    	
+    }
 	public void autonomous() {
 		
 		System.out.println("Starting autonomous code...");

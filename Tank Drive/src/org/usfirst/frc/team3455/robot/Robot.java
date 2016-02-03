@@ -285,8 +285,7 @@ public class Robot extends SampleRobot {
 //            	 winchCount = winchEncoder.get();				// get the pulse count from the encoder
 //            	 System.out.println("Count: "+ winchCount);		// print the pulse count                                                            
              } 
-                                                                                          
-    		                                                                                   
+                                                                                                                                                                   
     		// ********** END OF WINCH CODE **********                                            
     		//=======================================================================             
     		                                                                                      

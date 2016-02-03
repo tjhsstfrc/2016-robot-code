@@ -1,0 +1,101 @@
+
+package org.usfirst.frc.team3455.robot;
+
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
+/**
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the IterativeRobot
+ * documentation. If you change the name of this class or the package after
+ * creating this project, you must also update the manifest file in the resource
+ * directory.
+ */
+public class Robot extends IterativeRobot {
+    RobotDrive myRobot;  // class that handles basic drive operations                                                                      
+                                                                                                  
+    Talon left1;
+    Talon left2;
+    Talon right1;
+    Talon right2; 
+    
+	/**
+     * This function is run when the robot is first started up and should be
+     * used for any initialization code.
+     */
+    public void robotInit() {
+    	left1  = new Talon(RobotMap.leftMotor1);
+    	left2  = new Talon(RobotMap.leftMotor2);
+    	right1 = new Talon(RobotMap.rightMotor1);
+    	right2 = new Talon(RobotMap.rightMotor2);      
+    }
+
+    /**
+     * This function is called periodically during autonomous
+     */
+    public void autonomousPeriodic() {
+		System.out.println("Starting autonomous mode...");
+    }
+
+    /**
+     * This function is called periodically during operator control
+     */
+    public void teleopPeriodic() {
+    	System.out.println("Starting teleop mode...");
+    	
+    	double controlThresh = 0.2;
+    	double recipOfThresh = (1-controlThresh);
+    	double minPower = .05;
+    	double maxPower = .75;
+    	double mult = (maxPower - minPower);
+    	double right;
+    	double rotate;
+    	double rightAxis;
+    	double rotateAxis;
+    	double rightDir;
+    	double rotateDir;
+    	double rightPower;
+    	double rotatePower;
+    	
+        rightAxis = OI.getController1LeftAnalogY();
+    	rotateAxis = OI.getController1LeftAnalogX();                                                     
+    	rightDir = rightAxis/Math.abs(rightAxis);			   				// forward or backward (+1 or -1)
+    	rotateDir = rotateAxis/Math.abs(rotateAxis);            			// 			""                                  
+                                                                                                  
+    	right = 0;                                         					// right input formatted for range of detected values [0.2,1]                                
+    	rotate = 0;                                        					// left input formatted                          
+    	                                                                                      
+    	if(Math.abs(rightAxis) > controlThresh){            			   	// user moved stick beyond threshold                       
+    		right = (rightAxis-controlThresh*rightDir)/recipOfThresh;		// format right: scale back, set direction, proportion it 
+    	}
+    	if(Math.abs(rotateAxis) > controlThresh){
+    		rotate = (rotateAxis-controlThresh*rotateDir)/recipOfThresh;
+    	}
+                                                                                                  
+        rightDir = right/Math.abs(right);
+    	rightPower = (Math.abs(right*mult) + minPower) * rightDir;			// re-proportion for power's range, strip direction,
+    																		///   and then add back threshold and direction.                                                                                                        
+    	rotateDir = rotate/Math.abs(rotate);
+    	rotatePower = (Math.abs(rotate*mult) + minPower) * rotateDir;
+    	
+    	if(Math.abs(rightPower)>0.2){
+    		left1.set(-1*rightPower);
+    		left2.set(-1*rightPower);
+    		right1.set(rightPower);
+    		right2.set(rightPower);
+    	}
+    	else{
+    		left1.set(rotatePower);
+    		left2.set(rotatePower);
+    		right1.set(rotatePower);
+    		right1.set(rotatePower);
+    	}
+	}
+    
+    /**
+     * This function is called periodically during test mode
+     */
+    public void testPeriodic() {
+    	System.out.println("Starting test mode...");
+    }
+    
+}
